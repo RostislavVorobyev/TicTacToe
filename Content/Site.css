@@ -1,13 +1,4 @@
-﻿h1 {
-    display: block;
-    background: url('/Content/Images/TicTacToeLogo.png') no-repeat;
-    height: 166px;
-    width: 300px;
-}
-    h1 span {
-        display: none;
-    }
-input.findGame {
+﻿input.findGame {
     clear: both;
 }
 .clear {

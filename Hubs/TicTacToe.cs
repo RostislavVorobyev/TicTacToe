@@ -21,19 +21,12 @@ namespace TicTacToe.Hubs
 
         public TicTacToe()
         {
-            // Reset game
             for (var i = 0; i < field.Length; i++)
             {
                 field[i] = -1;
             }
         }
 
-        /// <summary>
-        /// Insert a marker at a given position for a given player
-        /// </summary>
-        /// <param name="player">The player number should be 0 or 1</param>
-        /// <param name="position">The position where to place the marker, should be between 0 and 9</param>
-        /// <returns>True if a winner was found</returns>
         public bool Play(int player, int position)
         {
             if (IsGameOver)
@@ -44,11 +37,7 @@ namespace TicTacToe.Hubs
             return CheckWinner();
         }
 
-        /// <summary>
-        /// Checks each different combination of marker placements and looks for a winner
-        /// Each position is marked with an initial -1 which means no marker has yet been placed
-        /// </summary>
-        /// <returns>True if there is a winner</returns>
+
         private bool CheckWinner()
         {
             for (int i = 0; i < 3; i++)
@@ -71,12 +60,6 @@ namespace TicTacToe.Hubs
             return false;
         }
 
-        /// <summary>
-        /// Places a marker at the given position for the given player as long as the position is marked as -1
-        /// </summary>
-        /// <param name="player">The player number should be 0 or 1</param>
-        /// <param name="position">The position where to place the marker, should be between 0 and 9</param>
-        /// <returns>True if the marker position was not already taken</returns>
         private bool PlaceMarker(int player, int position)
         {
             movesLeft -= 1;
