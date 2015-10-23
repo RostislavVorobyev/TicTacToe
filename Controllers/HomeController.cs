@@ -12,10 +12,5 @@ namespace TicTacToe.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
-        {
-            return View();
-        }
     }
 }
