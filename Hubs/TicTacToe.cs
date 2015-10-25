@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TicTacToe.Hubs
+﻿namespace TicTacToe.Hubs
 {
     public class TicTacToe
     {
@@ -17,11 +11,12 @@ namespace TicTacToe.Hubs
         public Client Player2 { get; set; }
 
         private readonly int[] field = new int[9];
+
         private int movesLeft = 9;
 
         public TicTacToe()
         {
-            for (var i = 0; i < field.Length; i++)
+            for (int i = 0; i < field.Length; i++)
             {
                 field[i] = -1;
             }
@@ -30,7 +25,9 @@ namespace TicTacToe.Hubs
         public bool Play(int player, int position)
         {
             if (IsGameOver)
+            {
                 return false;
+            }                
 
             PlaceMarker(player, position);
 
@@ -47,13 +44,16 @@ namespace TicTacToe.Hubs
                      (field[i] != -1 && field[i] == field[i + 3] && field[i] == field[i + 6])))
                 {
                     IsGameOver = true;
+
                     return true;
                 }
             }
 
-            if ((field[0] != -1 && field[0] == field[4] && field[0] == field[8]) || (field[2] != -1 && field[2] == field[4] && field[2] == field[6]))
+            if ((field[0] != -1 && field[0] == field[4] && field[0] == field[8]) || 
+                (field[2] != -1 && field[2] == field[4] && field[2] == field[6]))
             {
                 IsGameOver = true;
+
                 return true;
             }
 
@@ -72,9 +72,15 @@ namespace TicTacToe.Hubs
             }
 
             if (position > field.Length)
+            {
                 return false;
+            }
+                
             if (field[position] != -1)
+            {
                 return false;
+            }
+                
 
             field[position] = player;
 

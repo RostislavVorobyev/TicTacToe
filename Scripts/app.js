@@ -1,4 +1,4 @@
-﻿$(function () {
+﻿$(document).ready(function () {
     // Pre-load resources
     var x = new Image();
     x.src = "/Content/Images/TicTacToeX.png";
@@ -11,7 +11,7 @@
     $("#game").hide();
     $("#findAnotherGame").hide();
 
-    var game = $.connection.game;
+    var game = $.connection.TicTacToe;
 
     game.client.waitingForOpponent = function (message) {
         $("#information").html("<strong>Изчакай опонета прави ход</strong>");

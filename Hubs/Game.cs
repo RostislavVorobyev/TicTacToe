@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace TicTacToe.Hubs
 {
+    [HubName("TicTacToe")]
     public class Game : Hub
     {
         private static object _syncRoot = new object();
@@ -63,6 +64,11 @@ namespace TicTacToe.Hubs
             return null;
         }
 
+        public override Task OnReconnected()
+        {
+            return base.OnReconnected();
+        }
+
         public Task SendStatsUpdate()
         {
             return Clients.All.refreshAmountOfPlayers(new {
@@ -80,7 +86,11 @@ namespace TicTacToe.Hubs
 
                 if (client == null)
                 {
-                    client = new Client { ConnectionId = Context.ConnectionId, Name = data };
+                    client = new Client {
+                        ConnectionId = Context.ConnectionId,
+                        Name = data
+                    };
+
                     clients.Add(client);
                 }
 
@@ -205,7 +215,10 @@ namespace TicTacToe.Hubs
 
             lock (_syncRoot)
             {
-                games.Add(new TicTacToe { Player1 = player, Player2 = opponent });
+                games.Add(new TicTacToe {
+                    Player1 = player,
+                    Player2 = opponent
+                });
             }
 
             SendStatsUpdate();

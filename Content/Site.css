@@ -7,13 +7,14 @@
 .content {
     margin: 0 auto;
     margin-top: 1em;
+    width: 100%;
     max-width: 900px;
 }
 
 .input {
     border:none; 
-    border-radius: 2em;
-    width: 100%;
+    border-radius: 0.5em;
+    width: 97%;
     background: rgb(151, 83, 190);
     color: white;
     padding: 1em;
@@ -43,7 +44,7 @@
     border: none;
     border-radius: 0.5em;
     color: white;
-    font-size: 1em;
+    font-size: 1.2em;
     background: #53b0be;
 }
 
