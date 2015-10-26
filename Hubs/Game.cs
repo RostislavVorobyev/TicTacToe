@@ -10,8 +10,8 @@ namespace TicTacToe.Hubs
     [HubName("TicTacToe")]
     public sealed class Game : Hub
     {
-        private static object _syncRoot = new object();
-        private static int _gamesPlayed = 0;
+        private static object syncRoot = new object();
+        private static int gamesPlayed = 0;
         
         private static readonly List<Client> clients = new List<Client>();
         private static readonly List<TicTacToe> games = new List<TicTacToe>();
@@ -76,7 +76,7 @@ namespace TicTacToe.Hubs
         public Task SendStatsUpdate()
         {
             return Clients.All.refreshAmountOfPlayers(new {
-                totalGamesPlayed = _gamesPlayed,
+                totalGamesPlayed = gamesPlayed,
                 amountOfGames = games.Count,
                 amountOfClients = clients.Count
             });
@@ -84,7 +84,7 @@ namespace TicTacToe.Hubs
 
         public void RegisterClient(string data)
         {
-            lock (_syncRoot)
+            lock (syncRoot)
             {
                 var client = clients.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
 
@@ -144,7 +144,7 @@ namespace TicTacToe.Hubs
             if(game.Play(marker, position))
             {
                 games.Remove(game);
-                _gamesPlayed += 1;
+                gamesPlayed += 1;
 
                 Clients.Client(game.Player1.ConnectionId).gameOver(player.Name);
                 Clients.Client(game.Player2.ConnectionId).gameOver(player.Name);
@@ -153,7 +153,7 @@ namespace TicTacToe.Hubs
             if (game.IsGameOver && game.IsDraw)
             {
                 games.Remove(game);
-                _gamesPlayed += 1;
+                gamesPlayed += 1;
 
                 Clients.Client(game.Player1.ConnectionId).gameOver("It's a draw!");
                 Clients.Client(game.Player2.ConnectionId).gameOver("It's a draw!");
@@ -219,7 +219,7 @@ namespace TicTacToe.Hubs
                 Clients.Client(player.ConnectionId).waitingForOpponent(opponent.Name);
             }
 
-            lock (_syncRoot)
+            lock (syncRoot)
             {
                 games.Add(new TicTacToe {
                     Player1 = player,
