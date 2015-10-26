@@ -6,30 +6,29 @@
     <span id="gameInformation"></span>
     <div>
         <div id="register">
-            <input type="text" class="input" id="gamaName" placeholder="Име"/>
-            <div>
-                <button type="button" class="button" id="registerName">Започни игра</button>
-            </div>
+            <input type="text" class="input" id="gamaName" placeholder="Име" />
+            <button type="button" class="button" id="registerName">Започни игра</button>
         </div>
         <div id="findOpponent">
             <strong>Сега потърси опонент</strong>
             <em>You're just a small way from beating your first opponent!</em><br />
             <input type="button" class="button findGame" id="findGame" value="Търси опонент" />
         </div>
-        <div id="waitingForOpponent">We're searching for an opponent, please wait!</div>
-        <div id="game">
+        <div id="waitingForOpponent">Търсим опонент, моля изчакайте!</div>
+        <div id="game"></div>
+        <div class="clear">
+            <input type="button" class="button findGame" id="findAnotherGame" value="Започни отново" />
         </div>
-        <div class="clear"><input type="button" class="button findGame" id="findAnotherGame" value="Find a new Opponent!" /></div>
-        <fieldset>
-            <!--<legend>Debug message</legend>-->
+        <!--<fieldset>
+            <legend>Debug message</legend>
             <ul id="debug"></ul>
-        </fieldset>
+        </fieldset>-->
     </div>
-    </div>
-    <!--<div id="serverInformation">
-        Amount of players connected:  <span id="amountOfClients">0</span><br />
-        Amount of games currently being played: <span id="amountOfGames">0</span><br />
-        Total amount of games played: <span id="totalAmountOfGames">0</span><br />
-        <br />
-        <br />
-    </div>-->
+</div>
+<!--<div id="serverInformation">
+    Amount of players connected:  <span id="amountOfClients">0</span><br />
+    Amount of games currently being played: <span id="amountOfGames">0</span><br />
+    Total amount of games played: <span id="totalAmountOfGames">0</span><br />
+    <br />
+    <br />
+</div>-->

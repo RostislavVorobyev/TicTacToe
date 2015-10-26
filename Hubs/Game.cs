@@ -8,7 +8,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 namespace TicTacToe.Hubs
 {
     [HubName("TicTacToe")]
-    public class Game : Hub
+    public sealed class Game : Hub
     {
         private static object _syncRoot = new object();
         private static int _gamesPlayed = 0;
@@ -24,7 +24,11 @@ namespace TicTacToe.Hubs
 
         public Task OnDisconnected()
         {
-            var game = games.FirstOrDefault( x => x.Player1.ConnectionId == Context.ConnectionId || x.Player2.ConnectionId == Context.ConnectionId );
+            var game = games.FirstOrDefault( 
+                x => x.Player1.ConnectionId == Context.ConnectionId 
+                ||
+                x.Player2.ConnectionId == Context.ConnectionId
+           );
 
             if (game == null)
             {
@@ -64,10 +68,10 @@ namespace TicTacToe.Hubs
             return null;
         }
 
-        public override Task OnReconnected()
+        /*public override Task OnReconnected()
         {
             return base.OnReconnected();
-        }
+        }*/
 
         public Task SendStatsUpdate()
         {
@@ -104,7 +108,9 @@ namespace TicTacToe.Hubs
 
         public void Play(int position)
         {
-            var game = games.FirstOrDefault(x => x.Player1.ConnectionId == Context.ConnectionId || x.Player2.ConnectionId == Context.ConnectionId);
+            var game = games.FirstOrDefault(
+                x => x.Player1.ConnectionId == Context.ConnectionId || x.Player2.ConnectionId == Context.ConnectionId
+            );
 
             if (game == null || game.IsGameOver)
             {

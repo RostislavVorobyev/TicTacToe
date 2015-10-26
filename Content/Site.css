@@ -1,24 +1,25 @@
 ﻿body {
-    margin: 0;
-    border-top: 1.5em solid rgb(151, 83, 190);
-    background: rgb(56, 44, 61);
+	margin: 0;
+	border-top: 1.5em solid rgb(151, 83, 190);
+	background: rgb(56, 44, 61);
+	color: whitesmoke;
 }
 
 .content {
-    margin: 0 auto;
-    margin-top: 1em;
-    width: 100%;
-    max-width: 900px;
+	margin: 0 auto;
+	margin-top: 1em;
+	width: 100%;
+	max-width: 900px;
 }
 
 .input {
-    border:none; 
-    border-radius: 0.5em;
-    width: 97%;
-    background: rgb(151, 83, 190);
-    color: white;
-    padding: 1em;
-    margin-bottom: 1em;
+	border:none; 
+	border-radius: 0.5em;
+	width: 97%;
+	background: rgb(151, 83, 190);
+	color: white;
+	padding: 1em;
+	margin-bottom: 1em;
 }
 
 ::-webkit-input-placeholder {
@@ -39,60 +40,67 @@
 
 
 .button {
-    width: 100%;
-    padding: 2em;
-    border: none;
-    border-radius: 0.5em;
-    color: white;
-    font-size: 1.2em;
-    background: #53b0be;
+	width: 100%;
+	padding: 2em;
+	border: none;
+	border-radius: 0.5em;
+	color: white;
+	font-size: 1.2em;
+	background: #53b0be;
 }
 
 .button:hover {
-    background: rgb(122, 190, 83);
+	background: rgb(122, 190, 83);
 }
 
 
 input.findGame {
-    clear: both;
+	clear: both;
 }
 .clear {
-    clear: both;
+	clear: both;
 }
+
+#game {
+	margin: 0 auto;
+	width: 100%;
+	height: auto;
+}
+
 span.box {
-    display: block;
-    border: 2px solid pink;
-    height: 80px;
-    width: 80px;
-    float: left;
-    margin: 5px;
+	display: block;
+	border: 2px solid white;
+	height: 80px;
+	width: 80px;
+	float: left;
+	margin: 5px;
 }
 div.information {
-    clear: both;
+	clear: both;
 }
 div#serverInformation {
-    clear: both;
-    margin-top: 30px;
-    font-size: 80%;
-    font-style: italic;
+	clear: both;
+	margin-top: 30px;
+	font-size: 80%;
+	font-style: italic;
 }
 span#gameInformation {
-    font-weight: bold;
-    font-size: 120%;
+	font-weight: bold;
+	font-size: 120%;
 }
 span.mark1 {
-    background: url('/Content/Images/TicTacToeX.png') center center no-repeat;
+	background: url('/Content/Images/TicTacToeX.png') center center no-repeat;
 }
 
 span.mark2 {
-    background: url('/Content/Images/TicTacToeO.png') center center no-repeat;
+	background: url('/Content/Images/TicTacToeO.png') center center no-repeat;
 }
 div#game {
-    width: 320px;
+	width: 320px;
 }
 fieldset {
-    margin-top: 100px;
-    display: none;
+	margin-top: 100px;
+	display: none;
 }
 /*
 .input { 

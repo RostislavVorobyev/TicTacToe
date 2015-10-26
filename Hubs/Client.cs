@@ -4,6 +4,8 @@ namespace TicTacToe.Hubs
 {
     public class Client
     {
+        public string ConnectionId { get; set; }
+
         public string Name { get; set; }
 
         public Client Opponent { get; set; }
@@ -15,7 +17,5 @@ namespace TicTacToe.Hubs
         public bool LookingForOpponent { get; set; }
 
         public DateTime GameStarted { get; set; }
-
-        public string ConnectionId { get; set; }
     }
 }
