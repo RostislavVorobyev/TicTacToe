@@ -67,8 +67,7 @@ input.findGame {
 	height: auto;
 }
 
-span.box {
-	display: block;
+.box {
 	border: 2px solid white;
 	height: 80px;
 	width: 80px;

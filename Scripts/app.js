@@ -26,25 +26,22 @@
 		$("#findAnotherGame").hide();
 		$("#waitingForOpponent").hide();
 		$("#gameInformation").html("Играеш под името: " + message);
-		//$('#debug').append('<li>You\'re playing against ' + message + '</li>');
 
 		$("#game").html('<div id="information" /><br/>');
 		for (var i = 0; i < 9; i++) {
-
 			$("#game").append("<span id=" + i + " class='box' />");
 		}
 
 		$("#game").show();
 	};
 	game.client.noOpponents = function (message) {
-		$("#information").html("<strong>Looking for an opponent!</strong>");
-		//$('#debug').append('<li>Waiting for opponents to connect...</li>');
+		$("#information").html("<strong>Търсим опенент!</strong>");
 	};
 	game.client.addMarkerPlacement = function (message) {
 		if (message.OpponentName !== $('#gamaName').val()) {
 			$("#" + message.MarkerPosition).addClass("mark2");
 			$("#" + message.MarkerPosition).addClass("marked");
-			$("#information").html("<strong>Ти си</strong>");
+			$("#information").html("<strong>Ти си на ход!</strong>");
 		} else {
 			$("#" + message.MarkerPosition).addClass("mark1");
 			$("#" + message.MarkerPosition).addClass("marked");
@@ -53,7 +50,7 @@
 		$('#debug').append('<li>Marker was placed by ' + message.OpponentName + ' at position ' + message.MarkerPosition + '</li>');
 	};
 	game.client.opponentDisconnected = function (message) {
-		$("#gameInformation").html("<strong>Ти загуби " + message + " left and you won on walk over</strong>");
+		$("#gameInformation").html("<strong>Ти загуби " + message);
 		//$('#debug').append('<li>Your opponent left! Congratulations you won!</li>');
 
 		$("#findAnotherGame").show();
@@ -63,7 +60,7 @@
 		$('#debug').append('<li>Можеш да започнеш</li>');
 	};
 	game.client.gameOver = function (message) {
-		$("#gameInformation").html("You're playing against " + message);
+		$("#gameInformation").html("Играй отнонво " + message);
 		$("#information").html('<strong>Победител е ' + message + '</strong>');
 		//$('#debug').append('<li>Game is over and We have a Winner!! Congratulations ' + message + '</li>');
 		$("#findAnotherGame").show();
@@ -96,6 +93,7 @@
 
 		findGame();
 	});
+
 	function findGame() {
 		game.server.findOpponent();
 		$("#waitingForOpponent").show();
