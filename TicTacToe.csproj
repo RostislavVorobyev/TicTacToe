@@ -158,10 +158,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Images\x.png" />
     <Content Include="Content\Images\TicTacToeO.png" />
     <Content Include="Content\Images\TicTacToeX.png" />
-    <Content Include="Content\Images\o.png" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
