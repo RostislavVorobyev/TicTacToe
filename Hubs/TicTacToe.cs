@@ -6,9 +6,9 @@
 
         public bool IsDraw { get; private set; }
 
-        public Client Player1 { get; set; }
+        public Client PlayerOne { get; set; }
 
-        public Client Player2 { get; set; }
+        public Client PlayerTwo { get; set; }
 
         private readonly int[] field = new int[9];
 

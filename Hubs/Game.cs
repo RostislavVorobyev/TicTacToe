@@ -8,7 +8,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 namespace TicTacToe.Hubs
 {
     [HubName("TicTacToe")]
-    public sealed class Game : Hub
+    public class Game : Hub
     {
         private static object syncRoot = new object();
         private static int gamesPlayed = 0;
@@ -25,10 +25,8 @@ namespace TicTacToe.Hubs
         public Task OnDisconnected()
         {
             var game = games.FirstOrDefault( 
-                x => x.Player1.ConnectionId == Context.ConnectionId 
-                ||
-                x.Player2.ConnectionId == Context.ConnectionId
-           );
+                g => g.PlayerOne.ConnectionId == Context.ConnectionId || g.PlayerTwo.ConnectionId == Context.ConnectionId
+            );
 
             if (game == null)
             {
@@ -49,7 +47,7 @@ namespace TicTacToe.Hubs
                 games.Remove(game);
             }
 
-            var client = game.Player1.ConnectionId == Context.ConnectionId ? game.Player1 : game.Player2;
+            var client = game.PlayerOne.ConnectionId == Context.ConnectionId ? game.PlayerOne : game.PlayerTwo;
 
             if (client == null)
             {
@@ -109,7 +107,7 @@ namespace TicTacToe.Hubs
         public void Play(int position)
         {
             var game = games.FirstOrDefault(
-                x => x.Player1.ConnectionId == Context.ConnectionId || x.Player2.ConnectionId == Context.ConnectionId
+                g => g.PlayerOne.ConnectionId == Context.ConnectionId || g.PlayerTwo.ConnectionId == Context.ConnectionId
             );
 
             if (game == null || game.IsGameOver)
@@ -119,24 +117,24 @@ namespace TicTacToe.Hubs
 
             int marker = 0;
 
-            if (game.Player2.ConnectionId == Context.ConnectionId)
+            if (game.PlayerTwo.ConnectionId == Context.ConnectionId)
             {
                 marker = 1;
             }
 
-            var player = marker == 0 ? game.Player1 : game.Player2;
+            var player = marker == 0 ? game.PlayerOne : game.PlayerTwo;
 
             if (player.WaitingForMove)
             {
                 return;
             }
 
-            Clients.Client(game.Player1.ConnectionId).addMarkerPlacement(new GameInformation {
+            Clients.Client(game.PlayerOne.ConnectionId).addMarkerPlacement(new GameInformation {
                 OpponentName = player.Name,
                 MarkerPosition = position
             });
 
-            Clients.Client(game.Player2.ConnectionId).addMarkerPlacement(new GameInformation {
+            Clients.Client(game.PlayerTwo.ConnectionId).addMarkerPlacement(new GameInformation {
                 OpponentName = player.Name,
                 MarkerPosition = position
             });
@@ -146,8 +144,8 @@ namespace TicTacToe.Hubs
                 games.Remove(game);
                 gamesPlayed += 1;
 
-                Clients.Client(game.Player1.ConnectionId).gameOver(player.Name);
-                Clients.Client(game.Player2.ConnectionId).gameOver(player.Name);
+                Clients.Client(game.PlayerOne.ConnectionId).gameOver(player.Name);
+                Clients.Client(game.PlayerTwo.ConnectionId).gameOver(player.Name);
             }
 
             if (game.IsGameOver && game.IsDraw)
@@ -155,8 +153,8 @@ namespace TicTacToe.Hubs
                 games.Remove(game);
                 gamesPlayed += 1;
 
-                Clients.Client(game.Player1.ConnectionId).gameOver("It's a draw!");
-                Clients.Client(game.Player2.ConnectionId).gameOver("It's a draw!");
+                Clients.Client(game.PlayerOne.ConnectionId).gameOver("It's a draw!");
+                Clients.Client(game.PlayerTwo.ConnectionId).gameOver("It's a draw!");
             }
 
             if (!game.IsGameOver)
@@ -222,8 +220,8 @@ namespace TicTacToe.Hubs
             lock (syncRoot)
             {
                 games.Add(new TicTacToe {
-                    Player1 = player,
-                    Player2 = opponent
+                    PlayerOne = player,
+                    PlayerTwo = opponent
                 });
             }
 
