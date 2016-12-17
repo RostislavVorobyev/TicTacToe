@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Hubs
+﻿namespace TicTacToe.Logic
 {
     public class TicTacToe
     {

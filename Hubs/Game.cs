@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using TicTacToe.Logic;
 
 namespace TicTacToe.Hubs
 {
@@ -14,7 +15,7 @@ namespace TicTacToe.Hubs
         private static int gamesPlayed = 0;
         
         private static readonly List<Client> clients = new List<Client>();
-        private static readonly List<TicTacToe> games = new List<TicTacToe>();
+        private static readonly List<Logic.TicTacToe> games = new List<Logic.TicTacToe>();
         private static readonly Random random = new Random();
 
         public override Task OnConnected()
@@ -219,7 +220,7 @@ namespace TicTacToe.Hubs
 
             lock (syncRoot)
             {
-                games.Add(new TicTacToe {
+                games.Add(new Logic.TicTacToe {
                     PlayerOne = player,
                     PlayerTwo = opponent
                 });

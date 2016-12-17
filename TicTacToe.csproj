@@ -150,10 +150,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\Client.cs" />
+    <Compile Include="Logic\Client.cs" />
     <Compile Include="Hubs\Game.cs" />
-    <Compile Include="Hubs\GameInformation.cs" />
-    <Compile Include="Hubs\TicTacToe.cs" />
+    <Compile Include="Logic\GameInformation.cs" />
+    <Compile Include="Logic\TicTacToe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
