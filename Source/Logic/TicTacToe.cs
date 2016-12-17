@@ -24,7 +24,7 @@
 
         public bool Play(int player, int position)
         {
-            if (IsGameOver)
+            if (this.IsGameOver)
             {
                 return false;
             }                
@@ -41,9 +41,10 @@
             {
                 if (
                     ((field[i * 3] != -1 && field[(i * 3)] == field[(i * 3) + 1] && field[(i * 3)] == field[(i * 3) + 2]) ||
-                     (field[i] != -1 && field[i] == field[i + 3] && field[i] == field[i + 6])))
+                     (field[i] != -1 && field[i] == field[i + 3] && field[i] == field[i + 6]))
+                )
                 {
-                    IsGameOver = true;
+                    this.IsGameOver = true;
 
                     return true;
                 }
@@ -52,7 +53,7 @@
             if ((field[0] != -1 && field[0] == field[4] && field[0] == field[8]) || 
                 (field[2] != -1 && field[2] == field[4] && field[2] == field[6]))
             {
-                IsGameOver = true;
+                this.IsGameOver = true;
 
                 return true;
             }
@@ -66,8 +67,9 @@
 
             if (movesLeft <= 0)
             {
-                IsGameOver = true;
-                IsDraw = true;
+                this.IsGameOver = true;
+                this.IsDraw = true;
+
                 return false;
             }
 
@@ -80,7 +82,6 @@
             {
                 return false;
             }
-                
 
             field[position] = player;
 

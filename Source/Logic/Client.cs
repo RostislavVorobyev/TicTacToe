@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace TicTacToe.Logic
+﻿namespace TicTacToe.Logic
 {
+    using System;
+
     public class Client
     {
         public string ConnectionId { get; set; }

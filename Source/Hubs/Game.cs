@@ -1,26 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
-using TicTacToe.Logic;
-
-namespace TicTacToe.Hubs
+﻿namespace TicTacToe.Hubs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNet.SignalR;
+    using Microsoft.AspNet.SignalR.Hubs;
+    using Logic;
+
     [HubName("TicTacToe")]
     public class Game : Hub
     {
-        private static object syncRoot = new object();
         private static int gamesPlayed = 0;
-        
+
+        private static readonly object syncRoot = new object();
         private static readonly List<Client> clients = new List<Client>();
-        private static readonly List<Logic.TicTacToe> games = new List<Logic.TicTacToe>();
+        private static readonly List<TicTacToe> games = new List<TicTacToe>();
         private static readonly Random random = new Random();
 
         public override Task OnConnected()
         {
-            return SendStatsUpdate();
+            return this.SendStatsUpdate();
         }
 
         public Task OnDisconnected()
@@ -67,14 +67,10 @@ namespace TicTacToe.Hubs
             return null;
         }
 
-        /*public override Task OnReconnected()
+        private Task SendStatsUpdate()
         {
-            return base.OnReconnected();
-        }*/
-
-        public Task SendStatsUpdate()
-        {
-            return Clients.All.refreshAmountOfPlayers(new {
+            return Clients.All.refreshAmountOfPlayers(new
+            {
                 totalGamesPlayed = gamesPlayed,
                 amountOfGames = games.Count,
                 amountOfClients = clients.Count
@@ -89,7 +85,8 @@ namespace TicTacToe.Hubs
 
                 if (client == null)
                 {
-                    client = new Client {
+                    client = new Client
+                    {
                         ConnectionId = Context.ConnectionId,
                         Name = data
                     };
@@ -100,15 +97,16 @@ namespace TicTacToe.Hubs
                 client.IsPlaying = false;
             }
 
-            SendStatsUpdate();
+            this.SendStatsUpdate();
 
-            Clients.Client(Context.ConnectionId).registerComplete();
+            this.Clients.Client(Context.ConnectionId).registerComplete();
         }
 
         public void Play(int position)
         {
             var game = games.FirstOrDefault(
-                g => g.PlayerOne.ConnectionId == Context.ConnectionId || g.PlayerTwo.ConnectionId == Context.ConnectionId
+                g => g.PlayerOne.ConnectionId == Context.ConnectionId || 
+                g.PlayerTwo.ConnectionId == Context.ConnectionId
             );
 
             if (game == null || game.IsGameOver)
@@ -130,12 +128,14 @@ namespace TicTacToe.Hubs
                 return;
             }
 
-            Clients.Client(game.PlayerOne.ConnectionId).addMarkerPlacement(new GameInformation {
+            Clients.Client(game.PlayerOne.ConnectionId).addMarkerPlacement(new GameInformation
+            {
                 OpponentName = player.Name,
                 MarkerPosition = position
             });
 
-            Clients.Client(game.PlayerTwo.ConnectionId).addMarkerPlacement(new GameInformation {
+            Clients.Client(game.PlayerTwo.ConnectionId).addMarkerPlacement(new GameInformation
+            {
                 OpponentName = player.Name,
                 MarkerPosition = position
             });
@@ -166,7 +166,7 @@ namespace TicTacToe.Hubs
                 Clients.Client(player.Opponent.ConnectionId).waitingForMarkerPlacement(player.Name);
             }
 
-            SendStatsUpdate();
+            this.SendStatsUpdate();
         }
 
         public void FindOpponent()
@@ -181,7 +181,10 @@ namespace TicTacToe.Hubs
 
             player.LookingForOpponent = true;
 
-            var opponent = clients.Where(x => x.ConnectionId != Context.ConnectionId && x.LookingForOpponent && !x.IsPlaying).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+            var opponent = clients
+                .Where(x => x.ConnectionId != Context.ConnectionId && x.LookingForOpponent && !x.IsPlaying)
+                .OrderBy(x => Guid.NewGuid())
+                .FirstOrDefault();
 
             if (opponent == null)
             {
@@ -220,7 +223,7 @@ namespace TicTacToe.Hubs
 
             lock (syncRoot)
             {
-                games.Add(new Logic.TicTacToe {
+                games.Add(new TicTacToe {
                     PlayerOne = player,
                     PlayerTwo = opponent
                 });
